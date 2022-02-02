@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "72631b3f-a363-41a2-8488-f48a8095d63a",
+		"name": "HepsiBurada",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"user\", \"test-user\" + parseInt(Math.random() * 1000))\r",
+							"pm.environment.set(\"password\", \"psw\" + parseInt(Math.random() * 1000))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"let response=pm.response.json();\r",
+							"pm.environment.set(\"token\",response.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/token?user={{user}}&password={{password}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"token"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "{{user}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{token}"
+						},
+						"url": {
+							"raw": "{{url}}/token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{token}"
+				}
+			]
+		},
+		{
+			"name": "viewInvoice?barcode= {barcode}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/viewInvoice?barcode= {barcode}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"viewInvoice"
+					],
+					"query": [
+						{
+							"key": "barcode",
+							"value": " {barcode}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/viewInvoice?barcode= {barcode}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"viewInvoice"
+							],
+							"query": [
+								{
+									"key": "barcode",
+									"value": " {barcode}"
+								}
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{ InvoiceLink:\n“http://abc.com/invoice.pdf” , Result: {success: true } }"
+				}
+			]
+		},
+		{
+			"name": "sendInvoice",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/sendInvoice",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"sendInvoice"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{Barcode: {barcode} }"
+						},
+						"url": {
+							"raw": "{{url}}/sendInvoice",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sendInvoice"
+							]
+						}
+					},
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	]
+}
